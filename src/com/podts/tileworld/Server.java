@@ -33,10 +33,34 @@ public class Server {
 		return realPlayersByName.get(name);
 	}
 	
-	public Player rename(Player p, String newName) {
+	public boolean addOfflinePlayer(OfflinePlayer p) {
+		if(getOfflinePlayer(p.id) != null) return false;
+		realOfflinePlayers.put(p.id, p);
+		realOfflinePlayersByName.put(p.name, p);
+		return true;
+	}
+	
+	public boolean addPlayer(Player p) {
+		if(getPlayer(p.id) != null) return false;
+		realPlayers.put(p.id, p);
+		realPlayersByName.put(p.name, p);
+		return true;
+	}
+	
+	public void removeOfflinePlayer(OfflinePlayer p) {
+		realOfflinePlayers.remove(p.id);
+		realOfflinePlayers.remove(p.name);
+	}
+	
+	public void removePlayer(Player p) {
+		realPlayers.remove(p.id);
+		realPlayersByName.remove(p.name);
+	}
+	
+	public OfflinePlayer rename(OfflinePlayer p, String newName) {
 		synchronized(p) {
-			realPlayersByName.remove(p.name);
-			realPlayersByName.put(newName, p);
+			realOfflinePlayersByName.remove(p.name);
+			realOfflinePlayersByName.put(newName, p);
 			p.name = newName;
 		}
 		return p;
