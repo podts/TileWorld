@@ -66,6 +66,10 @@ public class Server {
 		return p;
 	}
 	
+	public static void main(String[] args) {
+		
+	}
+	
 	public Server() {
 		players = Collections.unmodifiableMap(realPlayers);
 		playersByName = Collections.unmodifiableMap(realPlayersByName);
