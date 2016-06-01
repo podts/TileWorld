@@ -2,14 +2,14 @@ package com.podts.tileworld;
 
 import java.util.UUID;
 
-public class Player {
+public class OfflinePlayer {
 	
 	public final UUID id;
 	protected String name;
 	
 	@Override
 	public boolean equals(Object o) {
-		if(o instanceof Player)
+		if(o instanceof OfflinePlayer)
 			return hashCode() == o.hashCode();
 		return false;
 	}
@@ -24,12 +24,12 @@ public class Player {
 		return name;
 	}
 	
-	public Player(String name) {
+	public OfflinePlayer(String name) {
 		id = UUID.randomUUID();
 		this.name = name;
 	}
 	
-	public Player(UUID id, String name) {
+	public OfflinePlayer(UUID id, String name) {
 		this.id = id;
 		this.name = name;
 	}

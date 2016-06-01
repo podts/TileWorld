@@ -7,20 +7,20 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
 	
-	private final Map<UUID,Player> realPlayers = new ConcurrentHashMap<UUID,Player>();
-	private final Map<String,Player> realPlayersByName = new ConcurrentHashMap<String,Player>();
-	public final Map<UUID,Player> players;
-	public final Map<String,Player> playersByName;
+	private final Map<UUID,OfflinePlayer> realPlayers = new ConcurrentHashMap<UUID,OfflinePlayer>();
+	private final Map<String,OfflinePlayer> realPlayersByName = new ConcurrentHashMap<String,OfflinePlayer>();
+	public final Map<UUID,OfflinePlayer> offlinePlayers;
+	public final Map<String,OfflinePlayer> playersByName;
 	
-	public Player getPlayer(UUID id) {
+	public OfflinePlayer getPlayer(UUID id) {
 		return realPlayers.get(id);
 	}
 	
-	public Player getPlayer(String name) {
+	public OfflinePlayer getPlayer(String name) {
 		return realPlayersByName.get(name);
 	}
 	
-	public Player rename(Player p, String newName) {
+	public OfflinePlayer rename(OfflinePlayer p, String newName) {
 		synchronized(p) {
 			realPlayersByName.remove(p.name);
 			realPlayersByName.put(newName, p);
@@ -30,7 +30,7 @@ public class Server {
 	}
 	
 	public Server() {
-		players = Collections.unmodifiableMap(realPlayers);
+		offlinePlayers = Collections.unmodifiableMap(realPlayers);
 		playersByName = Collections.unmodifiableMap(realPlayersByName);
 	}
 	
