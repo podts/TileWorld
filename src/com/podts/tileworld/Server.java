@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.podts.tileworld.persistent.AsynchronousPersistentManager;
+import com.podts.tileworld.persistent.FilePersistentManager;
+
 public class Server {
 	
 	private final Map<UUID,Player> realPlayers = new ConcurrentHashMap<UUID,Player>();
@@ -16,6 +19,12 @@ public class Server {
 	public final Map<String,Player> playersByName;
 	public final Map<UUID,OfflinePlayer> offlinePlayers;
 	public final Map<String,OfflinePlayer> offlinePlayersByName;
+	
+	private final AsynchronousPersistentManager persistentManager;
+	
+	public AsynchronousPersistentManager getPersistentManager() {
+		return persistentManager;
+	}
 	
 	public OfflinePlayer getOfflinePlayer(UUID id) {
 		return offlinePlayers.get(id);
@@ -75,6 +84,9 @@ public class Server {
 		playersByName = Collections.unmodifiableMap(realPlayersByName);
 		offlinePlayers = Collections.unmodifiableMap(realOfflinePlayers);
 		offlinePlayersByName = Collections.unmodifiableMap(realOfflinePlayersByName);
+		
+		persistentManager = new FilePersistentManager();
+		
 	}
 	
 	
